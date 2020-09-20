@@ -71,12 +71,12 @@ public class AddActivity extends AppCompatActivity {
         int month = datePicker.getMonth();
         int year = datePicker.getYear();
 
-        Log.d("ASHISH", title + done_or_note + dueDate + date + month + year);
-
         Task task = new Task(title, dueDate, done_or_note, date, month, year);
         TaskViewModel taskViewModel = ViewModelProviders.of(this).get(TaskViewModel.class);
         taskViewModel.insert(task);
-        Log.d("CODER", "Inserting Task Done");
+
+        finish();
+
     }
 
 }

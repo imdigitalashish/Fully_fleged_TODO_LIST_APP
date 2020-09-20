@@ -2,6 +2,8 @@ package com.imdigitalashish.vacoder.fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -22,34 +24,28 @@ import java.util.List;
 
 public class allTasksFragment extends Fragment {
 
-    private static final String TAG = "allTasksFragment";
-    private TaskViewModel taskViewModel;
+    TaskViewModel taskViewModel;
 
+    @Nullable
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        Log.d(TAG, "onCreate");
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_all_tasks, container, false);
 
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        Log.d(TAG, "onCreateView");
-        RecyclerView recyclerView = getView().findViewById(R.id.alltasksfragmentView);
+        RecyclerView recyclerView = view.findViewById(R.id.alltasksfragmentView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         final TaskAdapter adapter = new TaskAdapter();
         recyclerView.setAdapter(adapter);
 
         taskViewModel = ViewModelProviders.of(getActivity()).get(TaskViewModel.class);
-        taskViewModel.getAllTasks().observe(getActivity(), new Observer<List<Task>>() {
+        taskViewModel.getAllTasks().observe(this, new Observer<List<Task>>() {
             @Override
             public void onChanged(List<Task> tasks) {
                 adapter.setTasks(tasks);
             }
         });
 
-        return inflater.inflate(R.layout.fragment_all_tasks, container, false);
 
+
+        return view;
     }
 }
