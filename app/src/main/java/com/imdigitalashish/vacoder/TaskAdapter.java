@@ -27,6 +27,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
     private List<Task> tasks = new ArrayList<>();
     private OnItemClickListener listener;
     public Task currentTask;
+    TaskViewModel taskViewModel;
 
     @NonNull
     @Override
@@ -37,7 +38,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final TaskHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final TaskHolder holder, final int position) {
         currentTask = tasks.get(position);
         final Context context = holder.itemView.getContext();
         holder.textViewTitle.setText(currentTask.getTitle());
@@ -47,8 +48,13 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
             @Override
             public void onClick(View v) {
                 if (holder.checkBox.isChecked()) {
+                    Task clicked = tasks.get(position);
+                    Log.d("CODING", clicked.getTitle());
                     Toast.makeText(context, "Checked", Toast.LENGTH_SHORT).show();
-                    currentTask.setDone_or_note(true);
+                    clicked.setDone_or_note(true);
+                    taskViewModel = ViewModelProviders.of((FragmentActivity) context).get(TaskViewModel.class);
+                    taskViewModel.update(clicked);
+                    Toast.makeText(context, currentTask.getTitle(), Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(context, "Unchecked", Toast.LENGTH_SHORT).show();
                 }
