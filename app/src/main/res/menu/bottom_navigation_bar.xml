@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/penginTasks"
+        android:title="Pending Task"
+        android:enabled="true"
+
+        android:icon="@drawable/ic_baseline_home_24"/>
+
+    <item
+        android:id="@+id/doneTasks"
+        android:title="Done Tasks"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_done_all_24"/>
+    <item
+        android:id="@+id/allTasks"
+        android:title="All Tasks"
+        android:enabled="true"
+        android:icon="@drawable/ic_all_tasks"/>
+
+</menu>
