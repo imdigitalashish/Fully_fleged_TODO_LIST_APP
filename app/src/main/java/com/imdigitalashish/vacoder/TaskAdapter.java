@@ -56,6 +56,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
                     taskViewModel.update(clicked);
                     Toast.makeText(context, currentTask.getTitle(), Toast.LENGTH_SHORT).show();
                 } else {
+                    Task clicked = tasks.get(position);
+                    clicked.setDone_or_note(false);
+                    taskViewModel = ViewModelProviders.of((FragmentActivity)context).get(TaskViewModel.class);
+                    taskViewModel.update(clicked);
                     Toast.makeText(context, "Unchecked", Toast.LENGTH_SHORT).show();
                 }
             }
