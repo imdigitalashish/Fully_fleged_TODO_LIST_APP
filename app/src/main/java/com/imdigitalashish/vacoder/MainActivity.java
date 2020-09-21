@@ -3,14 +3,18 @@ package com.imdigitalashish.vacoder;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.imdigitalashish.vacoder.database.TaskViewModel;
 import com.imdigitalashish.vacoder.fragments.allTasksFragment;
 import com.imdigitalashish.vacoder.fragments.doneTasksFragment;
 import com.imdigitalashish.vacoder.fragments.pendingTaskFragment;
@@ -66,5 +70,26 @@ public class MainActivity extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction().replace(R.id.container_layout, new pendingTaskFragment()).commit();
             bottomNavigationView.setSelectedItemId(R.id.penginTasks);
         }
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.delete_all_menu_button, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.deleteAllTaksMenuActivity:
+                TaskViewModel taskViewModel = ViewModelProviders.of(this).get(TaskViewModel.class);
+                taskViewModel.deleteAllTask();
+                Toast.makeText(this, "All Task Deleted", Toast.LENGTH_SHORT).show();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+
     }
 }
