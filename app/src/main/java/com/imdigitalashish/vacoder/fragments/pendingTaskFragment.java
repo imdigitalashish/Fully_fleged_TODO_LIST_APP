@@ -1,5 +1,6 @@
 package com.imdigitalashish.vacoder.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.imdigitalashish.vacoder.EditTask;
 import com.imdigitalashish.vacoder.R;
 import com.imdigitalashish.vacoder.TaskAdapter;
 import com.imdigitalashish.vacoder.database.Task;
@@ -42,6 +44,22 @@ public class pendingTaskFragment extends Fragment {
             @Override
             public void onChanged(List<Task> tasks) {
                 adapter.setTasks(tasks);
+            }
+        });
+
+
+        adapter.setOnItemClickListener(new TaskAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Task task) {
+                Intent intent = new Intent(getActivity(), EditTask.class);
+                intent.putExtra("id", task.getId());
+                intent.putExtra("title", task.getTitle());
+                intent.putExtra("dueDate", task.isDueDate());
+                intent.putExtra("done_or_note", task.isDone_or_note());
+                intent.putExtra("date", task.getDate());
+                intent.putExtra("month", task.getMonth());
+                intent.putExtra("year", task.getYear());
+                startActivity(intent);
             }
         });
 
