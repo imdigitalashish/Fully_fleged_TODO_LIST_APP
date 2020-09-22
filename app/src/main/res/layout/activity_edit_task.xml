@@ -1,9 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".EditTask">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <EditText
+        android:id="@+id/et_task_title_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="16dp"
+        android:hint="Enter Your Task Title" />
+
+    <RadioGroup
+        android:id="@+id/rd_group_due_date_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_task_title_edit"
+        android:layout_marginStart="16dp">
+
+        <RadioButton
+            android:id="@+id/rd_btn_set_date_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Set Date" />
+
+        <RadioButton
+            android:id="@+id/rd_btn_set_note_date_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No Due Date" />
+
+
+    </RadioGroup>
+
+    <DatePicker
+        android:id="@+id/datePicker_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rd_group_due_date_edit"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:calendarViewShown="false"
+        android:datePickerMode="spinner" />
+
+</RelativeLayout>

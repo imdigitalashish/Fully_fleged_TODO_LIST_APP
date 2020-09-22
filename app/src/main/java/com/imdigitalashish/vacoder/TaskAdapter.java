@@ -25,8 +25,8 @@ import java.util.List;
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
 
     private List<Task> tasks = new ArrayList<>();
-    private OnItemClickListener listener;
     public Task currentTask;
+    private OnItemClickListener listener;
     TaskViewModel taskViewModel;
 
     @NonNull
@@ -64,6 +64,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
                 }
             }
         });
+
 //        holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 //            @Override
 //            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -102,8 +103,18 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
 
         public TaskHolder(@NonNull View itemView) {
             super(itemView);
-            textViewTitle =itemView.findViewById(R.id.task_title);
+            textViewTitle = itemView.findViewById(R.id.task_title);
             checkBox = itemView.findViewById(R.id.checkbox_done_or_not);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (listener != null && position != RecyclerView.NO_POSITION) {
+                        listener.onItemClick(tasks.get(position));
+                    }
+                }
+            });
 
 
         }
