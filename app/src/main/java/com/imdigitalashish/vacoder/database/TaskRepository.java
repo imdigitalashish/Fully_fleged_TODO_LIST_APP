@@ -21,7 +21,6 @@ public class TaskRepository {
         allTasks = taskDAO.getAllTasks();
         pendingTasks = taskDAO.getTasksCond(false);
         doneTasks = taskDAO.getTasksCond(true);
-
     }
 
     public void insert(Task task) {
@@ -51,6 +50,7 @@ public class TaskRepository {
     public LiveData<List<Task>> getDoneTasks() {
         return doneTasks;
     }
+
 
     public static class InsertAysncTask extends AsyncTask<Task, Void, Void> {
 

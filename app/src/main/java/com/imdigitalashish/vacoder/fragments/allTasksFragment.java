@@ -29,17 +29,17 @@ import java.util.List;
 
 public class allTasksFragment extends Fragment {
 
-    TaskViewModel taskViewModel;
+            TaskViewModel taskViewModel;
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_all_tasks, container, false);
+            @Nullable
+            @Override
+            public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+                View view = inflater.inflate(R.layout.fragment_all_tasks, container, false);
 
-        final RecyclerView recyclerView = view.findViewById(R.id.alltasksfragmentView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        final TaskAdapter adapter = new TaskAdapter();
-        recyclerView.setAdapter(adapter);
+                final RecyclerView recyclerView = view.findViewById(R.id.alltasksfragmentView);
+                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                final TaskAdapter adapter = new TaskAdapter();
+                recyclerView.setAdapter(adapter);
 
         taskViewModel = ViewModelProviders.of(getActivity()).get(TaskViewModel.class);
         taskViewModel.getAllTasks().observe(this, new Observer<List<Task>>() {

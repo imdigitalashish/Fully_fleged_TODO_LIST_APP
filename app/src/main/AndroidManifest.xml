@@ -10,18 +10,42 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EditTask"></activity>
+        <activity
+            android:name=".EditTask"
+            android:label="Edit Task"
+            android:parentActivityName=".MainActivity">
+
+        </activity>
+
         <activity
             android:name=".AddActivity"
             android:label="Add Task"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <receiver android:name=".TodoListWidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/todolist_widget_info" />
+        </receiver>
+
+
+        <service
+            android:name=".TodoListWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+
     </application>
 
 </manifest>
