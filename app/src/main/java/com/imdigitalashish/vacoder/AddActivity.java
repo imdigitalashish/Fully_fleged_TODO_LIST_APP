@@ -3,8 +3,14 @@ package com.imdigitalashish.vacoder;
 import androidx.annotation.LongDef;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.KeyEventDispatcher;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.app.PendingIntent;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +20,7 @@ import android.view.MenuItem;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.RemoteViews;
 
 import com.imdigitalashish.vacoder.database.Task;
 import com.imdigitalashish.vacoder.database.TaskViewModel;
@@ -71,9 +78,24 @@ public class AddActivity extends AppCompatActivity {
         int month = datePicker.getMonth();
         int year = datePicker.getYear();
 
+
         Task task = new Task(title, dueDate, done_or_note, date, month, year);
         TaskViewModel taskViewModel = ViewModelProviders.of(this).get(TaskViewModel.class);
         taskViewModel.insert(task);
+
+//        Context context = this;
+//        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+//        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgets, R.id.lv_widget_items);
+
+        Intent intent = new Intent(this, TodoListWidgetProvider.class);
+        intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+        int[] ids = AppWidgetManager.getInstance(getApplication())
+                .getAppWidgetIds(new ComponentName(getApplication(), TodoListWidgetProvider.class));
+
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+//        intent.putExtra("UPDATE", "UPDATE");
+        Log.d("AddActicity", "SEnding BroadCast");
+        sendBroadcast(intent);
 
         finish();
 

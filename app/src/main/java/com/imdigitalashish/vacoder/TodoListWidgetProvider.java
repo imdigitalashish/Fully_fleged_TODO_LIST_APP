@@ -6,11 +6,24 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
+import androidx.room.Room;
+
+import com.imdigitalashish.vacoder.database.Task;
+import com.imdigitalashish.vacoder.database.TaskDatabase;
+
+import java.util.List;
+
 public class TodoListWidgetProvider extends AppWidgetProvider {
+
+
+    private TaskDatabase db;
+    private static final String TAG = "TodoListWidgetProvider";
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
@@ -29,6 +42,7 @@ public class TodoListWidgetProvider extends AppWidgetProvider {
             views.setEmptyView(R.id.lv_widget_items, R.id.example_widget_empty_view);
 
             appWidgetManager.updateAppWidget(appWidgetId, views);
+            appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.lv_widget_items);
 
         }
     }
@@ -47,6 +61,7 @@ public class TodoListWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onEnabled(Context context) {
+
         Toast.makeText(context, "onEnabled", Toast.LENGTH_SHORT).show();
     }
 
@@ -56,4 +71,12 @@ public class TodoListWidgetProvider extends AppWidgetProvider {
     }
 
 
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        Log.d(TAG, "App Widget Provider On Reciver Called");
+        int appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.lv_widget_items);
+        super.onReceive(context, intent);
+    }
 }

@@ -1,10 +1,12 @@
 package com.imdigitalashish.vacoder.database;
 
 import android.app.Application;
+import android.content.Context;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 
 import java.util.List;
 
@@ -22,6 +24,8 @@ public class TaskViewModel extends AndroidViewModel {
         pendingTasks = taskRepository.getPendingTasks();
         doneTasks = taskRepository.getDoneTasks();
     }
+
+
 
     public void insert(Task task) {
         taskRepository.insert(task);
@@ -50,4 +54,5 @@ public class TaskViewModel extends AndroidViewModel {
     public LiveData<List<Task>> getDoneTasks() {
         return doneTasks;
     }
+
 }

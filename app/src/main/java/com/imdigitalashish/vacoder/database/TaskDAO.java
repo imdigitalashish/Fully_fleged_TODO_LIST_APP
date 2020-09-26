@@ -30,7 +30,7 @@ public interface TaskDAO {
     @Query("SELECT * FROM task_table WHERE done_or_note LIKE :condition ")
     LiveData<List<Task>> getTasksCond(boolean condition);
 
-//    @Query("SELECT * FROM task_table WHERE done_or_note LIKE :condition")
-//    List<Task> getTaskWidget(boolean condition);
+    @Query("SELECT * FROM task_table WHERE done_or_note LIKE :condition")
+    List<Task> getTaskWidget(boolean condition);
 
 }
