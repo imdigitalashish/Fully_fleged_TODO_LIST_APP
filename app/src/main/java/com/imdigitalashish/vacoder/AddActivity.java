@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.KeyEventDispatcher;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
@@ -25,6 +26,8 @@ import android.widget.RemoteViews;
 import com.imdigitalashish.vacoder.database.Task;
 import com.imdigitalashish.vacoder.database.TaskViewModel;
 
+import java.util.Calendar;
+
 public class AddActivity extends AppCompatActivity {
 
     EditText et_title;
@@ -32,6 +35,7 @@ public class AddActivity extends AppCompatActivity {
 
     DatePicker datePicker;
 
+    int valueOfNotification;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +45,13 @@ public class AddActivity extends AppCompatActivity {
         et_title = findViewById(R.id.et_task_title);
         radioGroup = findViewById(R.id.rd_group_due_date);
         datePicker = findViewById(R.id.datePicker);
+        if (getIntent().hasExtra("NOTIFICATION_ID")) {
+            int id = getIntent().getIntExtra("NOTIFICATION_ID", 1);
+
+            valueOfNotification = id;
+        } else {
+            et_title.setText("NOTHING FOUND !");
+        }
     }
 
     @Override
@@ -59,7 +70,6 @@ public class AddActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-
 
 
     }
@@ -99,6 +109,11 @@ public class AddActivity extends AppCompatActivity {
 
         finish();
 
+    }
+
+    public void setAlarm(Calendar c) {
+        AlarmManager manager = (AlarmManager)getSystemService(ALARM_SERVICE);
+        Intent intent = new Intent(AddActivity.class, )
     }
 
 }

@@ -10,13 +10,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <service
+            android:name=".MyNotificationService"
+            android:exported="false"></service>
+
         <activity
             android:name=".EditTask"
             android:label="Edit Task"
-            android:parentActivityName=".MainActivity">
-
-        </activity>
-
+            android:parentActivityName=".MainActivity"></activity>
         <activity
             android:name=".AddActivity"
             android:label="Add Task"
@@ -41,11 +42,9 @@
                 android:resource="@xml/todolist_widget_info" />
         </receiver>
 
-
         <service
             android:name=".TodoListWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
-
     </application>
 
 </manifest>

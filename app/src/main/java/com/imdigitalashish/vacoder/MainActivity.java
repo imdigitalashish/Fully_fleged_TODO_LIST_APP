@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.appwidget.AppWidgetManager;
@@ -18,15 +20,22 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.imdigitalashish.vacoder.database.Task;
 import com.imdigitalashish.vacoder.database.TaskViewModel;
 import com.imdigitalashish.vacoder.fragments.allTasksFragment;
 import com.imdigitalashish.vacoder.fragments.doneTasksFragment;
 import com.imdigitalashish.vacoder.fragments.pendingTaskFragment;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
 
     BottomNavigationView bottomNavigationView;
+
+    int NotificationID;
+
+    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +45,21 @@ public class MainActivity extends AppCompatActivity {
 //        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.container_layout, new pendingTaskFragment()).commit();
+
+
+        TaskViewModel taskViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication()).create(TaskViewModel.class);
+        taskViewModel.getAllTasks().observe(this, new Observer<List<Task>>() {
+            @Override
+            public void onChanged(List<Task> tasks) {
+                try {
+                    Task task = tasks.get(tasks.size() - 1);
+                    NotificationID = task.getId();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
         bottomNavigationView = findViewById(R.id.bottomNav);
         bottomNavigationView.setSelectedItemId(R.id.penginTasks);
@@ -66,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void addTask(View view) {
         Intent intent = new Intent(MainActivity.this, AddActivity.class);
+        intent.putExtra("NOTIFICATION_ID", NotificationID+1);
         startActivityForResult(intent, 1);
     }
 
@@ -107,4 +132,6 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
 
     }
+
+
 }
