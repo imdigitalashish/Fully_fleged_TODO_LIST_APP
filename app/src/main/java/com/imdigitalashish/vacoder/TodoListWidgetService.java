@@ -75,6 +75,7 @@ public class TodoListWidgetService extends RemoteViewsService {
         public void onDataSetChanged() {
 
             // data.clear(); <-- We have to call this method to ensure that data is not loaded twice
+            data.clear();
             new DataAsyncTask().execute(context);
             SystemClock.sleep(300);
         }
@@ -131,9 +132,7 @@ public class TodoListWidgetService extends RemoteViewsService {
                 List<Task> tasks = db.taskDAO().getTaskWidget(false);
                 Log.d("TAG_DONE", tasks.toString());
                 for (Task task : tasks) {
-                    if (!data.contains(task.getTitle())) {
                         data.add(task.getTitle());
-                    }
                 }
                 Log.d("TAG_FOR", data.toString());
                 return null;

@@ -1,6 +1,9 @@
 package com.imdigitalashish.vacoder;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.icu.text.MessagePattern;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -54,6 +57,15 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
                     clicked.setDone_or_note(true);
                     taskViewModel = ViewModelProviders.of((FragmentActivity) context).get(TaskViewModel.class);
                     taskViewModel.update(clicked);
+                    Intent intent = new Intent(context, TodoListWidgetProvider.class);
+                    intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+                    int[] ids = AppWidgetManager.getInstance(((FragmentActivity) context).getApplication())
+                            .getAppWidgetIds(new ComponentName(((FragmentActivity) context).getApplication(), TodoListWidgetProvider.class));
+
+                    intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+//        intent.putExtra("UPDATE", "UPDATE");
+                    Log.d("AddActicity", "SEnding BroadCast");
+                    context.sendBroadcast(intent);
                     Toast.makeText(context, currentTask.getTitle(), Toast.LENGTH_SHORT).show();
                 } else {
                     Task clicked = tasks.get(position);

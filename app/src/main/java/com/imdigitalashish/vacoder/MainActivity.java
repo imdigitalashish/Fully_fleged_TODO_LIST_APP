@@ -5,8 +5,11 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -86,6 +89,15 @@ public class MainActivity extends AppCompatActivity {
             case R.id.deleteAllTaksMenuActivity:
                 TaskViewModel taskViewModel = ViewModelProviders.of(this).get(TaskViewModel.class);
                 taskViewModel.deleteAllTask();
+                Intent intent = new Intent(this, TodoListWidgetProvider.class);
+                intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+                int[] ids = AppWidgetManager.getInstance(getApplication())
+                        .getAppWidgetIds(new ComponentName(getApplication(), TodoListWidgetProvider.class));
+
+                intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+//        intent.putExtra("UPDATE", "UPDATE");
+                Log.d("AddActicity", "SEnding BroadCast");
+                sendBroadcast(intent);
                 Toast.makeText(this, "All Task Deleted", Toast.LENGTH_SHORT).show();
                 break;
         }
