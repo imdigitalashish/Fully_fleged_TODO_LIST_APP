@@ -1,32 +1,23 @@
 package com.imdigitalashish.vacoder;
 
-import android.app.admin.DevicePolicyManager;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.SystemClock;
-import android.provider.ContactsContract;
 import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.room.Room;
 
 import com.imdigitalashish.vacoder.database.Task;
-import com.imdigitalashish.vacoder.database.TaskDAO;
 import com.imdigitalashish.vacoder.database.TaskDatabase;
-import com.imdigitalashish.vacoder.database.TaskRepository;
-import com.imdigitalashish.vacoder.database.TaskViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.imdigitalashish.vacoder.TodoListWidgetProvider.EXTRA_ITEM_TEXT;
 
 public class TodoListWidgetService extends RemoteViewsService {
 
@@ -44,6 +35,7 @@ public class TodoListWidgetService extends RemoteViewsService {
         private int appWidgetId;
         private String[] exampleData = {"one", "two", "three", "four", "five", "six", "seven", "nine", "ten"};
         private ArrayList<String> data = new ArrayList<String>();
+        List<Task> tasks;
 //        TaskViewModel taskViewModel;
 //        TaskRepository taskRepository;
 //        TaskDatabase taskDatabase;
@@ -97,6 +89,11 @@ public class TodoListWidgetService extends RemoteViewsService {
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.todo_list_widget_item);
 
 //            views.setTextViewText(R.id.widget_item_text, exampleData[position]);
+
+            Intent fillIntent = new Intent();
+            fillIntent.putExtra(EXTRA_ITEM_TEXT, tasks.get(position).getTitle());
+            views.setOnClickFillInIntent(R.id.widget_item_relativeLayout, fillIntent);
+
             views.setTextViewText(R.id.widget_item_text, data.get(position));
             views.setTextViewText(R.id.item_number_widget, String.valueOf(position+1));
             Log.d("TAG", position+"");
@@ -130,7 +127,7 @@ public class TodoListWidgetService extends RemoteViewsService {
 
                 db = Room.databaseBuilder(contexts[0],
                         TaskDatabase.class, "task_database").build();
-                List<Task> tasks = db.taskDAO().getTaskWidget(false);
+                tasks = db.taskDAO().getTaskWidget(false);
                 Log.d("TAG_DONE", tasks.toString());
                 for (Task task : tasks) {
                         data.add(task.getTitle());
