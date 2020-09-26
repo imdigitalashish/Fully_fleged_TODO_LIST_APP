@@ -98,6 +98,7 @@ public class TodoListWidgetService extends RemoteViewsService {
 
 //            views.setTextViewText(R.id.widget_item_text, exampleData[position]);
             views.setTextViewText(R.id.widget_item_text, data.get(position));
+            views.setTextViewText(R.id.item_number_widget, String.valueOf(position+1));
             Log.d("TAG", position+"");
             return views;
         }

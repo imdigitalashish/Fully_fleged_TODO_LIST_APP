@@ -3,6 +3,7 @@ package com.imdigitalashish.vacoder;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.appwidget.AppWidgetManager;
@@ -31,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+//        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.container_layout, new pendingTaskFragment()).commit();
 
