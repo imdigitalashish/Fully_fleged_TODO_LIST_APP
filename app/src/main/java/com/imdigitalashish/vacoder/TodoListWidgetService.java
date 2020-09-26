@@ -17,7 +17,12 @@ import com.imdigitalashish.vacoder.database.TaskDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.imdigitalashish.vacoder.TodoListWidgetProvider.EXTRA_ITEM_DATE;
+import static com.imdigitalashish.vacoder.TodoListWidgetProvider.EXTRA_ITEM_DUEDATE;
+import static com.imdigitalashish.vacoder.TodoListWidgetProvider.EXTRA_ITEM_ID;
+import static com.imdigitalashish.vacoder.TodoListWidgetProvider.EXTRA_ITEM_MONTH;
 import static com.imdigitalashish.vacoder.TodoListWidgetProvider.EXTRA_ITEM_TEXT;
+import static com.imdigitalashish.vacoder.TodoListWidgetProvider.EXTRA_ITEM_YEAR;
 
 public class TodoListWidgetService extends RemoteViewsService {
 
@@ -91,7 +96,15 @@ public class TodoListWidgetService extends RemoteViewsService {
 //            views.setTextViewText(R.id.widget_item_text, exampleData[position]);
 
             Intent fillIntent = new Intent();
+
+            fillIntent.putExtra(EXTRA_ITEM_ID, tasks.get(position).getId());
             fillIntent.putExtra(EXTRA_ITEM_TEXT, tasks.get(position).getTitle());
+            fillIntent.putExtra(EXTRA_ITEM_DUEDATE, tasks.get(position).isDueDate());
+            fillIntent.putExtra(EXTRA_ITEM_DATE, tasks.get(position).getDate());
+            fillIntent.putExtra(EXTRA_ITEM_MONTH, tasks.get(position).getMonth());
+            fillIntent.putExtra(EXTRA_ITEM_YEAR, tasks.get(position).getYear());
+
+
             views.setOnClickFillInIntent(R.id.widget_item_relativeLayout, fillIntent);
 
             views.setTextViewText(R.id.widget_item_text, data.get(position));

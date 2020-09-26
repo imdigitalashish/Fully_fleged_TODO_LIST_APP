@@ -49,6 +49,21 @@ public class allTasksFragment extends Fragment {
             }
         });
 
+                adapter.setOnItemClickListener(new TaskAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(Task task) {
+                        Intent intent = new Intent(getActivity(), EditTask.class);
+                        intent.putExtra("id", task.getId());
+                        intent.putExtra("title", task.getTitle());
+                        intent.putExtra("dueDate", task.isDueDate());
+                        intent.putExtra("done_or_note", task.isDone_or_note());
+                        intent.putExtra("date", task.getDate());
+                        intent.putExtra("month", task.getMonth());
+                        intent.putExtra("year", task.getYear());
+                        startActivity(intent);
+                    }
+                });
+
 //        adapter.setOnItemClickListener(new TaskAdapter.OnItemClickListener() {
 //            @Override
 //            public void onItemClick(Task task) {

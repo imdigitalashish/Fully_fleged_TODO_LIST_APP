@@ -20,7 +20,13 @@ public class TodoListWidgetProvider extends AppWidgetProvider {
     private static final String TAG = "TodoListWidgetProvider";
     public static final String ACTION_TOAST = "actionToast";
 
+    public static final String EXTRA_ITEM_ID = "extraItemId";
     public static final String EXTRA_ITEM_TEXT = "extraItemPosition";
+    public static final String EXTRA_ITEM_DUEDATE = "extraItemDueDate";
+    public static final String EXTRA_ITEM_DATE = "extraItemDate";
+    public static final String EXTRA_ITEM_MONTH = "extraItemMonth";
+    public static final String EXTRA_ITEM_YEAR = "extraItemYear";
+
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
@@ -85,9 +91,26 @@ public class TodoListWidgetProvider extends AppWidgetProvider {
             AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
             appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.lv_widget_items);
         } else if (ACTION_TOAST.equals(intent.getAction())){
-            String clickedPosition = intent.getStringExtra(EXTRA_ITEM_TEXT);
-            Toast.makeText(context, clickedPosition, Toast.LENGTH_SHORT).show();
-            Log.d(TAG, "Clicked Called");
+
+            int itemId = intent.getIntExtra(EXTRA_ITEM_ID, 1);
+            String itemTitle = intent.getStringExtra(EXTRA_ITEM_TEXT);
+            boolean itemDueDate = intent.getBooleanExtra(EXTRA_ITEM_DUEDATE,  false);
+            int date = intent.getIntExtra(EXTRA_ITEM_DATE, 1);
+            int month = intent.getIntExtra(EXTRA_ITEM_MONTH, 1);
+            int year = intent.getIntExtra(EXTRA_ITEM_YEAR, 1);
+
+            Intent EditTaskIntent = new Intent(context, EditTask.class);
+            EditTaskIntent.putExtra("id", itemId);
+            EditTaskIntent.putExtra("title", itemTitle);
+            EditTaskIntent.putExtra("dueDate", itemDueDate);
+            EditTaskIntent.putExtra("date", date);
+            EditTaskIntent.putExtra("month", month);
+            EditTaskIntent.putExtra("year", year);
+            context.startActivity(EditTaskIntent);
+
+
+
+            Log.d(TAG, "Clicked Called : " );
         }
 
         super.onReceive(context, intent);
