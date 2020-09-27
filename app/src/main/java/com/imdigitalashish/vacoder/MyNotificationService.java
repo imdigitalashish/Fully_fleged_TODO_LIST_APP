@@ -33,7 +33,7 @@ public class MyNotificationService extends IntentService {
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_baseline_check_box_24)
                 .setContentTitle("A reminder for you")
-                .setContentText("SDJFD")
+                .setContentText(username)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
                 .build();

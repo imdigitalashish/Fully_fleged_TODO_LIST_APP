@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-        
+
         bottomNavigationView.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
             @Override
             public void onNavigationItemReselected(@NonNull MenuItem menuItem) {
@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void addTask(View view) {
         Intent intent = new Intent(MainActivity.this, AddActivity.class);
-        intent.putExtra("NOTIFICATION_ID", NotificationID+1);
+        intent.putExtra("NOTIFICATION_ID", NotificationID + 1);
 
 //        AlarmManager manager = (AlarmManager)getSystemService(ALARM_SERVICE);
 //        Intent notificationIntent = new Intent(this, MyNotificationService.class);

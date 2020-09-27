@@ -1,5 +1,7 @@
 package com.imdigitalashish.vacoder;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
@@ -24,6 +26,8 @@ import com.imdigitalashish.vacoder.database.TaskViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.content.Context.ALARM_SERVICE;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
 
@@ -55,8 +59,21 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
                     Log.d("CODING", clicked.getTitle());
                     Toast.makeText(context, "Checked", Toast.LENGTH_SHORT).show();
                     clicked.setDone_or_note(true);
+
                     taskViewModel = ViewModelProviders.of((FragmentActivity) context).get(TaskViewModel.class);
                     taskViewModel.update(clicked);
+
+
+                    // For Alarm Cancel
+                    AlarmManager manager = (AlarmManager)context.getSystemService(ALARM_SERVICE);
+                    Intent CancelIntent = new Intent(context, MyNotificationService.class);
+                    PendingIntent pendingIntent = PendingIntent.getService(context, clicked.getId(), CancelIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+//                    manager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
+                    manager.cancel(pendingIntent);
+
+
+//                    Log.d("DEKH", intent.getIntExtra("NOTIFICATION_ID", 1) + "");
+
                     Intent intent = new Intent(context, TodoListWidgetProvider.class);
                     intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
                     int[] ids = AppWidgetManager.getInstance(((FragmentActivity) context).getApplication())
