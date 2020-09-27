@@ -19,7 +19,9 @@ import java.util.List;
 
 import static com.imdigitalashish.vacoder.TodoListWidgetProvider.EXTRA_ITEM_DATE;
 import static com.imdigitalashish.vacoder.TodoListWidgetProvider.EXTRA_ITEM_DUEDATE;
+import static com.imdigitalashish.vacoder.TodoListWidgetProvider.EXTRA_ITEM_HOUR;
 import static com.imdigitalashish.vacoder.TodoListWidgetProvider.EXTRA_ITEM_ID;
+import static com.imdigitalashish.vacoder.TodoListWidgetProvider.EXTRA_ITEM_MINUTE;
 import static com.imdigitalashish.vacoder.TodoListWidgetProvider.EXTRA_ITEM_MONTH;
 import static com.imdigitalashish.vacoder.TodoListWidgetProvider.EXTRA_ITEM_TEXT;
 import static com.imdigitalashish.vacoder.TodoListWidgetProvider.EXTRA_ITEM_YEAR;
@@ -103,6 +105,8 @@ public class TodoListWidgetService extends RemoteViewsService {
             fillIntent.putExtra(EXTRA_ITEM_DATE, tasks.get(position).getDate());
             fillIntent.putExtra(EXTRA_ITEM_MONTH, tasks.get(position).getMonth());
             fillIntent.putExtra(EXTRA_ITEM_YEAR, tasks.get(position).getYear());
+            fillIntent.putExtra(EXTRA_ITEM_HOUR, tasks.get(position).getHour());
+            fillIntent.putExtra(EXTRA_ITEM_MINUTE, tasks.get(position).getMinute());
 
 
             views.setOnClickFillInIntent(R.id.widget_item_relativeLayout, fillIntent);

@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     Task task = tasks.get(tasks.size() - 1);
                     NotificationID = task.getId();
+                    Log.d("ALARM", "NOTIFICATION ID SET TO" + NotificationID);
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -92,7 +93,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void addTask(View view) {
         Intent intent = new Intent(MainActivity.this, AddActivity.class);
-        intent.putExtra("NOTIFICATION_ID", NotificationID + 1);
+        int NextNotificationId = NotificationID + 1;
+        intent.putExtra("NOTIFICATION_ID", NextNotificationId);
+        Log.d("ALARM", "Main Activity: " + "NOTIFICATION GIVEN : " + NextNotificationId);
 
 //        AlarmManager manager = (AlarmManager)getSystemService(ALARM_SERVICE);
 //        Intent notificationIntent = new Intent(this, MyNotificationService.class);

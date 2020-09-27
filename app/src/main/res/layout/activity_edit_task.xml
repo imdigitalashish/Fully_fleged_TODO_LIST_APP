@@ -42,9 +42,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/rd_group_due_date_edit"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:calendarViewShown="false"
         android:datePickerMode="spinner" />
+
+    <TimePicker
+        android:id="@+id/timePickerAdddActivityEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rd_group_due_date_edit"
+        android:layout_marginStart="-3dp"
+        android:layout_marginTop="19dp"
+        android:layout_toEndOf="@+id/datePicker_edit"
+        android:timePickerMode="spinner" />
 
 </RelativeLayout>

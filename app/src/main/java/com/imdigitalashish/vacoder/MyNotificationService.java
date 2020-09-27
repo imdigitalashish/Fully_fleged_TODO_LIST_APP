@@ -2,6 +2,7 @@ package com.imdigitalashish.vacoder;
 
 import android.app.IntentService;
 import android.app.Notification;
+import android.app.PendingIntent;
 import android.content.Intent;
 
 import androidx.core.app.NotificationCompat;
@@ -26,6 +27,9 @@ public class MyNotificationService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
 
+        Intent OpenActivity = new Intent(this, MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 1, OpenActivity, 0);
+
 
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
 
@@ -34,6 +38,8 @@ public class MyNotificationService extends IntentService {
                 .setSmallIcon(R.drawable.ic_baseline_check_box_24)
                 .setContentTitle("A reminder for you")
                 .setContentText(username)
+                .setAutoCancel(true)
+                .setContentIntent(pendingIntent)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
                 .build();

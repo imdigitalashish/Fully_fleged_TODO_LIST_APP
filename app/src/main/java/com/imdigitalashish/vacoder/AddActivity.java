@@ -14,6 +14,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.nfc.Tag;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -30,6 +31,7 @@ import com.imdigitalashish.vacoder.database.Task;
 import com.imdigitalashish.vacoder.database.TaskViewModel;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import static java.util.Calendar.DAY_OF_MONTH;
 import static java.util.Calendar.HOUR_OF_DAY;
@@ -64,6 +66,8 @@ public class AddActivity extends AppCompatActivity {
             int id = getIntent().getIntExtra("NOTIFICATION_ID", 1);
 
             valueOfNotification = id;
+
+            Log.d("ALARM", "AddActivity: GOT A NOTIFICATION OF  VALUE FOR : " + valueOfNotification);
         } else {
             et_title.setText("NOTHING FOUND !");
         }
@@ -108,7 +112,6 @@ public class AddActivity extends AppCompatActivity {
 
         if (!title.trim().equals("")) {
 
-
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
                 hour = timePicker.getHour();
                 minute = timePicker.getMinute();
@@ -118,18 +121,23 @@ public class AddActivity extends AppCompatActivity {
             }
 
 
-            Calendar c = Calendar.getInstance();
+            Log.d("ALARM", dueDate+"");
+            if (dueDate) {
+                Calendar c = Calendar.getInstance();
 
-            c.set(Calendar.YEAR, datePicker.getYear());
-            c.set(Calendar.MONTH, datePicker.getMonth());
-            c.set(Calendar.DAY_OF_MONTH, datePicker.getDayOfMonth());
-            c.set(Calendar.HOUR_OF_DAY, hour);
-            c.set(Calendar.MINUTE, minute);
-            c.set(Calendar.SECOND, 0);
+                c.set(Calendar.YEAR, datePicker.getYear());
+                c.set(Calendar.MONTH, datePicker.getMonth());
+                c.set(Calendar.DAY_OF_MONTH, datePicker.getDayOfMonth());
+                c.set(Calendar.HOUR_OF_DAY, hour);
+                c.set(Calendar.MINUTE, minute);
+                c.set(Calendar.SECOND, 0);
 
-            setAlarm(c);
+                setAlarm(c);
+            }
 
-            Task task = new Task(title, dueDate, done_or_note, date, month, year);
+
+
+            Task task = new Task(title, dueDate, done_or_note, date, month, year, hour, minute);
             TaskViewModel taskViewModel = ViewModelProviders.of(this).get(TaskViewModel.class);
             taskViewModel.insert(task);
 
@@ -161,9 +169,9 @@ public class AddActivity extends AppCompatActivity {
         AlarmManager manager = (AlarmManager) getSystemService(ALARM_SERVICE);
         Intent intent = new Intent(AddActivity.this, MyNotificationService.class);
         intent.putExtra("nameview", et_title.getText().toString());
-        PendingIntent pendingIntent = PendingIntent.getService(this, intent.getIntExtra("NOTIFICATION_ID", 1), intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getService(this, valueOfNotification, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         manager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
-        Log.d("DEKH", intent.getIntExtra("NOTIFICATION_ID", 1) + "");
+        Log.d("ALARM", "Alarm Setted for With ID : " + valueOfNotification);
 
     }
 

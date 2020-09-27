@@ -26,6 +26,8 @@ public class TodoListWidgetProvider extends AppWidgetProvider {
     public static final String EXTRA_ITEM_DATE = "extraItemDate";
     public static final String EXTRA_ITEM_MONTH = "extraItemMonth";
     public static final String EXTRA_ITEM_YEAR = "extraItemYear";
+    public static final String EXTRA_ITEM_HOUR = "extraItemHour";
+    public static final String EXTRA_ITEM_MINUTE = "extraItemMinute";
 
 
     @Override
@@ -98,6 +100,8 @@ public class TodoListWidgetProvider extends AppWidgetProvider {
             int date = intent.getIntExtra(EXTRA_ITEM_DATE, 1);
             int month = intent.getIntExtra(EXTRA_ITEM_MONTH, 1);
             int year = intent.getIntExtra(EXTRA_ITEM_YEAR, 1);
+            int hour = intent.getIntExtra(EXTRA_ITEM_HOUR, 1);
+            int minute = intent.getIntExtra(EXTRA_ITEM_MINUTE, 1);
 
             Intent EditTaskIntent = new Intent(context, EditTask.class);
             EditTaskIntent.putExtra("id", itemId);
@@ -106,6 +110,9 @@ public class TodoListWidgetProvider extends AppWidgetProvider {
             EditTaskIntent.putExtra("date", date);
             EditTaskIntent.putExtra("month", month);
             EditTaskIntent.putExtra("year", year);
+            EditTaskIntent.putExtra("hour", hour);
+            EditTaskIntent.putExtra("minute", minute);
+
             context.startActivity(EditTaskIntent);
 
 

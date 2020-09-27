@@ -18,13 +18,18 @@ public class Task {
     private int month;
     private int year;
 
-    public Task(String title, boolean dueDate, boolean done_or_note, int date, int month, int year) {
+    private int hour;
+    private int minute;
+
+    public Task(String title, boolean dueDate, boolean done_or_note, int date, int month, int year, int hour, int minute) {
         this.title = title;
         this.dueDate = dueDate;
         this.done_or_note = done_or_note;
         this.date = date;
         this.month = month;
         this.year = year;
+        this.hour = hour;
+        this.minute = minute;
     }
 
     public int getId() {
@@ -83,5 +88,19 @@ public class Task {
         this.year = year;
     }
 
-    //
+    public int getHour() {
+        return hour;
+    }
+
+    public void setHour(int hour) {
+        this.hour = hour;
+    }
+
+    public int getMinute() {
+        return minute;
+    }
+
+    public void setMinute(int minute) {
+        this.minute = minute;
+    }
 }

@@ -63,6 +63,8 @@ public class doneTasksFragment extends Fragment {
                 intent.putExtra("date", task.getDate());
                 intent.putExtra("month", task.getMonth());
                 intent.putExtra("year", task.getYear());
+                intent.putExtra("hour", task.getHour());
+                intent.putExtra("minute", task.getMinute());
                 startActivity(intent);
             }
         });
