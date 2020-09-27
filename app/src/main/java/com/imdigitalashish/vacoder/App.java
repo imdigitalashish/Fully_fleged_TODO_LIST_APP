@@ -11,10 +11,11 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        createNotificationManager();
+        createNotificationChannel();
     }
 
-    private void createNotificationManager() {
+    private void createNotificationChannel() {
+
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             NotificationChannel notificationChannel = new NotificationChannel(
                     CHANNEL_ID,
@@ -29,5 +30,6 @@ public class App extends Application {
             manager.createNotificationChannel(notificationChannel);
 
         }
+
     }
 }

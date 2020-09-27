@@ -28,6 +28,11 @@ import com.imdigitalashish.vacoder.database.TaskViewModel;
 
 import java.util.Calendar;
 
+import static java.util.Calendar.DAY_OF_MONTH;
+import static java.util.Calendar.HOUR_OF_DAY;
+import static java.util.Calendar.MINUTE;
+import static java.util.Calendar.SECOND;
+
 public class AddActivity extends AppCompatActivity {
 
     EditText et_title;
@@ -89,9 +94,21 @@ public class AddActivity extends AppCompatActivity {
         int year = datePicker.getYear();
 
 
+        Calendar c = Calendar.getInstance();
+
+        c.set(Calendar.YEAR, datePicker.getYear());
+        c.set(Calendar.MONTH, datePicker.getMonth());
+        c.set(Calendar.DAY_OF_MONTH, datePicker.getDayOfMonth());
+//        c.set(Calendar.HOUR_OF_DAY, 9);
+//        c.set(Calendar.MINUTE, 17);
+//        c.set(Calendar.SECOND, 0);
+
+        setAlarm(c);
+
         Task task = new Task(title, dueDate, done_or_note, date, month, year);
         TaskViewModel taskViewModel = ViewModelProviders.of(this).get(TaskViewModel.class);
         taskViewModel.insert(task);
+
 
 //        Context context = this;
 //        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
@@ -111,9 +128,13 @@ public class AddActivity extends AppCompatActivity {
 
     }
 
-    public void setAlarm(Calendar c) {
-        AlarmManager manager = (AlarmManager)getSystemService(ALARM_SERVICE);
-        Intent intent = new Intent(AddActivity.class, )
+    private void setAlarm(Calendar c) {
+
+        AlarmManager manager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        Intent intent = new Intent(AddActivity.this, MyNotificationService.class);
+        PendingIntent pendingIntent = PendingIntent.getService(this, intent.getIntExtra("NOTIFICATION_ID", 1), intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        manager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
+
     }
 
 }

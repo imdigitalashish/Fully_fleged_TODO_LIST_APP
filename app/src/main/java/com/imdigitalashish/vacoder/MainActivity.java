@@ -8,6 +8,8 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Intent;
@@ -91,6 +93,12 @@ public class MainActivity extends AppCompatActivity {
     public void addTask(View view) {
         Intent intent = new Intent(MainActivity.this, AddActivity.class);
         intent.putExtra("NOTIFICATION_ID", NotificationID+1);
+
+//        AlarmManager manager = (AlarmManager)getSystemService(ALARM_SERVICE);
+//        Intent notificationIntent = new Intent(this, MyNotificationService.class);
+//        PendingIntent pendingIntent = PendingIntent.getService(this, 1, notificationIntent, 0);
+//        manager.setExact(AlarmManager.RTC_WAKEUP, 4*1000, pendingIntent);
+
         startActivityForResult(intent, 1);
     }
 
