@@ -22,6 +22,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.RemoteViews;
+import android.widget.TimePicker;
 
 import com.imdigitalashish.vacoder.database.Task;
 import com.imdigitalashish.vacoder.database.TaskViewModel;
@@ -39,6 +40,7 @@ public class AddActivity extends AppCompatActivity {
     RadioGroup radioGroup;
 
     DatePicker datePicker;
+    TimePicker timePicker;
 
     int valueOfNotification;
 
@@ -50,6 +52,9 @@ public class AddActivity extends AppCompatActivity {
         et_title = findViewById(R.id.et_task_title);
         radioGroup = findViewById(R.id.rd_group_due_date);
         datePicker = findViewById(R.id.datePicker);
+        timePicker = findViewById(R.id.timePickerAdddActivity);
+        timePicker.setIs24HourView(true);
+
         if (getIntent().hasExtra("NOTIFICATION_ID")) {
             int id = getIntent().getIntExtra("NOTIFICATION_ID", 1);
 
@@ -92,6 +97,15 @@ public class AddActivity extends AppCompatActivity {
         int date = datePicker.getDayOfMonth();
         int month = datePicker.getMonth();
         int year = datePicker.getYear();
+        int hour;
+        int minute;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            hour = timePicker.getHour();
+            minute = timePicker.getMinute();
+        } else {
+            hour = timePicker.getCurrentHour();
+            minute = timePicker.getCurrentMinute();
+        }
 
 
         Calendar c = Calendar.getInstance();
@@ -99,9 +113,9 @@ public class AddActivity extends AppCompatActivity {
         c.set(Calendar.YEAR, datePicker.getYear());
         c.set(Calendar.MONTH, datePicker.getMonth());
         c.set(Calendar.DAY_OF_MONTH, datePicker.getDayOfMonth());
-//        c.set(Calendar.HOUR_OF_DAY, 9);
-//        c.set(Calendar.MINUTE, 17);
-//        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.HOUR_OF_DAY, hour);
+        c.set(Calendar.MINUTE, minute);
+        c.set(Calendar.SECOND, 0);
 
         setAlarm(c);
 
