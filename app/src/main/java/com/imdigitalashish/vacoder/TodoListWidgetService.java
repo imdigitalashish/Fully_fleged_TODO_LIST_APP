@@ -43,10 +43,6 @@ public class TodoListWidgetService extends RemoteViewsService {
         private String[] exampleData = {"one", "two", "three", "four", "five", "six", "seven", "nine", "ten"};
         private ArrayList<String> data = new ArrayList<String>();
         List<Task> tasks;
-//        TaskViewModel taskViewModel;
-//        TaskRepository taskRepository;
-//        TaskDatabase taskDatabase;
-//        private TaskDAO taskDAO;
 
         WidgetItemFactory(Context context, Intent intent) {
             this.context = context;
@@ -56,24 +52,12 @@ public class TodoListWidgetService extends RemoteViewsService {
 
         @Override
         public void onCreate() {
-//            data.clear();
             new DataAsyncTask().execute(context);
             SystemClock.sleep(300);
-
-//            taskRepository = new TaskRepository(getApplication());
-//            List<Task> tasks = taskRepository.getPendingTaskWidget();
-//
-////            taskDatabase = TaskDatabase.getInstance(getApplication());
-////            taskDAO = taskDatabase.taskDAO();
-////            List<Task> getPendingTasks = taskDAO.getTaskWidget(false);
-////            Log.d("ASHISH_K", getPendingTasks.toString());
-
         }
 
         @Override
         public void onDataSetChanged() {
-
-            // data.clear(); <-- We have to call this method to ensure that data is not loaded twice
             data.clear();
             new DataAsyncTask().execute(context);
             SystemClock.sleep(300);
@@ -94,9 +78,6 @@ public class TodoListWidgetService extends RemoteViewsService {
 
 
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.todo_list_widget_item);
-
-//            views.setTextViewText(R.id.widget_item_text, exampleData[position]);
-
             Intent fillIntent = new Intent();
 
             fillIntent.putExtra(EXTRA_ITEM_ID, tasks.get(position).getId());

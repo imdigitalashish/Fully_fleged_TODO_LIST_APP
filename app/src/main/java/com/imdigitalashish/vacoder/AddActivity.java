@@ -141,18 +141,12 @@ public class AddActivity extends AppCompatActivity {
             TaskViewModel taskViewModel = ViewModelProviders.of(this).get(TaskViewModel.class);
             taskViewModel.insert(task);
 
-
-//        Context context = this;
-//        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-//        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgets, R.id.lv_widget_items);
-
             Intent intent = new Intent(this, TodoListWidgetProvider.class);
             intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
             int[] ids = AppWidgetManager.getInstance(getApplication())
                     .getAppWidgetIds(new ComponentName(getApplication(), TodoListWidgetProvider.class));
 
             intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
-//        intent.putExtra("UPDATE", "UPDATE");
             Log.d("AddActicity", "SEnding BroadCast");
             sendBroadcast(intent);
 

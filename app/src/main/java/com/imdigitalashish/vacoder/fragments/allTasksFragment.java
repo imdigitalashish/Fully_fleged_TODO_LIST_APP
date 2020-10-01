@@ -66,13 +66,6 @@ public class allTasksFragment extends Fragment {
                     }
                 });
 
-//        adapter.setOnItemClickListener(new TaskAdapter.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(Task task) {
-//                Intent intent = new Intent(getActivity(), EditTask.class);
-//                intent.putExtra("")
-//            }
-//        });
         final Task[] deletedTask = new Task[1];
 
         ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -102,14 +95,7 @@ public class allTasksFragment extends Fragment {
                         break;
                 }
             }
-//
-//            @Override
-//            public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
-//                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
-//                ColorDrawable background = new ColorDrawable(Color.RED);
-//                background.setBounds(recyclerView.getRight(), recyclerView.getTop(), (int) (recyclerView.getLeft() - dX), 100);
-//                background.draw(c);
-//            }
+
         };
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);

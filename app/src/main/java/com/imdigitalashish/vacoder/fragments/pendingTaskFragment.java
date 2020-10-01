@@ -33,7 +33,6 @@ public class pendingTaskFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_pending_task, container, false);
 
         final RecyclerView recyclerView = view.findViewById(R.id.pendingTaskFragmentView);
@@ -96,14 +95,7 @@ public class pendingTaskFragment extends Fragment {
                         break;
                 }
             }
-//
-//            @Override
-//            public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
-//                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
-//                ColorDrawable background = new ColorDrawable(Color.RED);
-//                background.setBounds(recyclerView.getRight(), recyclerView.getTop(), (int) (recyclerView.getLeft() - dX), 100);
-//                background.draw(c);
-//            }
+
         };
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);

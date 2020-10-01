@@ -43,9 +43,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-//        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-
         getSupportFragmentManager().beginTransaction().replace(R.id.container_layout, new pendingTaskFragment()).commit();
 
 
@@ -96,12 +93,6 @@ public class MainActivity extends AppCompatActivity {
         int NextNotificationId = NotificationID + 1;
         intent.putExtra("NOTIFICATION_ID", NextNotificationId);
         Log.d("ALARM", "Main Activity: " + "NOTIFICATION GIVEN : " + NextNotificationId);
-
-//        AlarmManager manager = (AlarmManager)getSystemService(ALARM_SERVICE);
-//        Intent notificationIntent = new Intent(this, MyNotificationService.class);
-//        PendingIntent pendingIntent = PendingIntent.getService(this, 1, notificationIntent, 0);
-//        manager.setExact(AlarmManager.RTC_WAKEUP, 4*1000, pendingIntent);
-
         startActivityForResult(intent, 1);
     }
 
@@ -134,7 +125,6 @@ public class MainActivity extends AppCompatActivity {
                         .getAppWidgetIds(new ComponentName(getApplication(), TodoListWidgetProvider.class));
 
                 intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
-//        intent.putExtra("UPDATE", "UPDATE");
                 Log.d("AddActicity", "SEnding BroadCast");
                 sendBroadcast(intent);
                 Toast.makeText(this, "All Task Deleted", Toast.LENGTH_SHORT).show();

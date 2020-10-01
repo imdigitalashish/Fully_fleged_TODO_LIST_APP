@@ -63,16 +63,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
                     taskViewModel = ViewModelProviders.of((FragmentActivity) context).get(TaskViewModel.class);
                     taskViewModel.update(clicked);
 
-
-                    // For Alarm Cancel
                     AlarmManager manager = (AlarmManager)context.getSystemService(ALARM_SERVICE);
                     Intent CancelIntent = new Intent(context, MyNotificationService.class);
                     PendingIntent pendingIntent = PendingIntent.getService(context, clicked.getId(), CancelIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-//                    manager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
                     manager.cancel(pendingIntent);
-
-
-//                    Log.d("DEKH", intent.getIntExtra("NOTIFICATION_ID", 1) + "");
 
                     Intent intent = new Intent(context, TodoListWidgetProvider.class);
                     intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
@@ -80,7 +74,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
                             .getAppWidgetIds(new ComponentName(((FragmentActivity) context).getApplication(), TodoListWidgetProvider.class));
 
                     intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
-//        intent.putExtra("UPDATE", "UPDATE");
                     Log.d("AddActicity", "SEnding BroadCast");
                     context.sendBroadcast(intent);
                     Toast.makeText(context, currentTask.getTitle(), Toast.LENGTH_SHORT).show();
@@ -93,21 +86,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
                 }
             }
         });
-
-//        holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                if (holder.checkBox.isChecked()) {
-//                    Log.d("CODING_IN_FLOW", "HE:");
-//                    currentTask.setDone_or_note(true);
-//                    TaskViewModel taskViewModel = ViewModelProviders.of((FragmentActivity) context).get(TaskViewModel.class);
-//                    taskViewModel.update(currentTask);
-//                    Toast.makeText(context, "Done Updating the task`", Toast.LENGTH_SHORT).show();
-//                }
-//
-//
-//            }
-//        });
 
     }
 
